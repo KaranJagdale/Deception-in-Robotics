@@ -55,25 +55,35 @@ w1 = Transpose(h3)*C3*h3
 w2 = Transpose(h4)*C4*h4
 w3 = Transpose(h5)*C5*h5
 
-f1 = 3*x + 3
-f2 = x**2-1
+f1 = x+7/4
+f2 = 4*x + 7
 
-p = (1-g) + w1*f1 + w2*f2 - w3*f1*f2 
+p = (1-g[0]) + w1[0]*f1 + w2[0]*f2 - w3[0]*f1*f2
+
+print(p)
 
 #Defining the SOS constraints
 prob = SOSProblem()
 prob.add_sos_constraint(p, [x])
-prob.add_sos_constraint(g, [x])
-prob.add_sos_constraint(w1, [x])
-prob.add_sos_constraint(w2, [x])
-prob.add_sos_constraint(w3, [x])
+prob.add_sos_constraint(w1[0], [x])
+prob.add_sos_constraint(g[0], [x])
 
-C1v, C2v, C3v, C4v, C5v = prob.sym_to_var(C1), prob.sym_to_var(C2), prob.sym_to_var(C3), prob.sym_to_var(C4), prob.sym_to_var(C5)
+prob.add_sos_constraint(w2[0], [x])
+prob.add_sos_constraint(w3[0], [x])
 
-prob.solve()
+#C1v, C2v, C3v, C4v, C5v = prob.sym_to_var(C1), prob.sym_to_var(C2), prob.sym_to_var(C3), prob.sym_to_var(C4), prob.sym_to_var(C5)
+l11, l12, l13, l12, l22, l23, l13, l23, l33 = prob.sym_to_var(l11), prob.sym_to_var(l12), prob.sym_to_var(l13), prob.sym_to_var(l12), prob.sym_to_var(l22), prob.sym_to_var(l23), prob.sym_to_var(l13), prob.sym_to_var(l23), prob.sym_to_var(l33)
+m11, m12, m13, m14, m12, m22, m23, m24, m13, m23, m33, m34, m14, m24, m34, m44 = prob.sym_to_var(m11), prob.sym_to_var(m12), prob.sym_to_var(m13), prob.sym_to_var(m14), prob.sym_to_var(m12), prob.sym_to_var(m22), prob.sym_to_var(m23), prob.sym_to_var(m24), prob.sym_to_var(m13), prob.sym_to_var(m23), prob.sym_to_var(m33), prob.sym_to_var(m34), prob.sym_to_var(m14), prob.sym_to_var(m24), prob.sym_to_var(m34), prob.sym_to_var(m44)
+n11, n12, n12, n22 = prob.sym_to_var(n11), prob.sym_to_var(n12), prob.sym_to_var(n12), prob.sym_to_var(n22)
+
+o11, o12, o12, o22 = prob.sym_to_var(o11), prob.sym_to_var(o12), prob.sym_to_var(o12), prob.sym_to_var(o22)
+
+p11, p12, p12, p22 = prob.sym_to_var(p11), prob.sym_to_var(p12), prob.sym_to_var(p12), prob.sym_to_var(p22)
+
 prob.set_objective('min', lin.det(lin.inv(C)))
+prob.solve()
+
 
 
 
 #print(simplify(Transpose(h1)*C1*h1))
-
