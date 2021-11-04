@@ -50,17 +50,19 @@ h4, h5 = h3, h3
 C = Matrix([[4*l13+2*l22, 12*l23],[0, 12*l33]])
 
 # we will define below the polynomial which are constrained to be SOS
-g = Transpose(h1)*C1*h1
-w1 = Transpose(h3)*C3*h3
-w2 = Transpose(h4)*C4*h4
-w3 = Transpose(h5)*C5*h5
+g = expand(Transpose(h1)*C1*h1)
+w1 = expand(Transpose(h3)*C3*h3)
+w2 = expand(Transpose(h4)*C4*h4)
+w3 = expand(Transpose(h5)*C5*h5)
 
 f1 = x+7/4
 f2 = 4*x + 7
+print('Karan')
+print(g,w1[0],w2[0],w3[0])
 
-p = (1-g[0]) + w1[0]*f1 + w2[0]*f2 - w3[0]*f1*f2
+p = expand((1-g[0]) + w1[0]*f1 + w2[0]*f2 - w3[0]*f1*f2)
 
-print(p)
+#print(p)
 
 #Defining the SOS constraints
 prob = SOSProblem()
@@ -80,7 +82,7 @@ o11, o12, o12, o22 = prob.sym_to_var(o11), prob.sym_to_var(o12), prob.sym_to_var
 
 p11, p12, p12, p22 = prob.sym_to_var(p11), prob.sym_to_var(p12), prob.sym_to_var(p12), prob.sym_to_var(p22)
 
-prob.set_objective('min', lin.det(lin.inv(C)))
+prob.set_objective('max', 12*l33*(4*l13+2*l22))
 prob.solve()
 
 
