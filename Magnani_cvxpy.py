@@ -2,7 +2,7 @@
 """
 Created on Tue Nov  9 09:18:00 2021
 
-@author: Karan
+@author: DELL
 """
 
 import cvxpy as cp
@@ -26,7 +26,7 @@ constraints += [C3 >> Epsilon * np.identity(nc3)]
 constraints += [C4 >> Epsilon * np.identity(nc4)]
 constraints += [C5 >> Epsilon * np.identity(nc5)]
 constraints += [C2 >> Epsilon * np.identity(nc2)]
-constraints += [C >> Epsilon * np.identity(nc)]
+#constraints += [C >> Epsilon * np.identity(nc)]
 constraints += [C[0,0] == 4*C1[0,2] + 2*C1[1,1], C[0,1] == 12*C1[1,2], C[1,1] == 12*C1[2,2], C[1,0] == 0]
 constraints += [C2[0,0] == 1-C1[0,0] + 2.9*C3[0,0] - 0.9*C[0,0] + 2.61*C5[0,0]]
 constraints += [C2[1,1] + C2[0,2] == -2*C1[0,2] - C1[1,1] + 6*C3[0,1] + 2.9*C3[1,1] + C4[0,0] - 0.9*C4[1,1] - 2.9*C5[0,0] + 5.4*C5[0,1] + 2.61*C5[1,1]]
@@ -37,16 +37,14 @@ constraints += [C2[2,3] == -3*C5[1,1]]
 constraints += [C2[3,3] == 0]
 
 #prob = cp.Problem(cp.Minimize(-cp.log(12*C1[2,2]*(4*C1[0,2] + 2*C1[1,1]))), constraints)
-#prob = cp.Problem(cp.Minimize(-cp.log_det(C)), constraints)
-prob = cp.Problem(cp.Minimize(1), constraints)
+prob = cp.Problem(cp.Minimize(-cp.log_det(C)), constraints)
+#prob = cp.Problem(cp.Minimize(1), constraints)
 
-prob.solve(verbose = True)
+prob.solve(verbose = True, max_iters=5000)
 print("status:", prob.status)
 print("The optimal value is", prob.value)
-print("g is : ", C.value)
+print(C.value)
 
-
-
-
-
+#Comments 11/9/21 6:18 - Depending on the number of max_iters the optimal value is either -12.71 or -inf
+#quite strange behavior. Need to recheck the constraints
 
