@@ -4,6 +4,8 @@ Created on Tue Nov  9 09:18:00 2021
 
 @author: DELL
 """
+#Demonstrates magnani's algorithm to find intersection of zero sublevel sets of polynomials
+# -x and x-1
 
 import cvxpy as cp
 import numpy as np
