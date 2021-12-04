@@ -24,7 +24,7 @@ Y = np.random.uniform(-1/np.sqrt(b), 1/np.sqrt(b), n)
 Z = np.random.uniform(-1/np.sqrt(c), 1/np.sqrt(c), n) 
 
 
-for i in range(1000):
+for i in range(n):
     if a*X[i]**2 + b*Y[i]**2 + c*Z[i]**2 < 1:
         Xp.append(X[i])
         Yp.append(Y[i])
