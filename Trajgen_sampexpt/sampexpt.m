@@ -73,7 +73,7 @@ count = 0;
 %             end
 %         end
 %         if dec ==1
-%             I_f{j} = [I_f{j} i];
+%             I_f{j} = [I_f{j} I{j}(i)];
 %         end
 %     end
 % end
@@ -90,7 +90,7 @@ for j = 1:nxt
             end
         end
         if dec ==1
-            I_f{j} = [I_f{j} i];
+            I_f{j} = [I_f{j} I{j}(i)];
         end
     end
 end
