@@ -1,1 +1,1 @@
-This repository contains the codes ragarding my work of target prediction observing agent's partial and imperfect trajectory. Trajgen_sampexpt contains main simulation code (sampexpt_1.m) along with the helper functions. 
+This repository contains the codes ragarding my work (Jointly with Melkior Ornik) of target prediction observing agent's partial and imperfect trajectory. Trajgen_sampexpt contains main simulation code (sampexpt_1.m) along with the helper functions. 
